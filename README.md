@@ -1,4 +1,4 @@
-# Pristine Pro
+markdown# Pristine Pro
 
 ## Cleaning Business Management Platform
 
@@ -176,3 +176,177 @@ A floating chat widget on every admin page shown only to Admin and Manager roles
 ---
 
 ## Project Structure
+pristine-pro/
+├── doc/
+│   └── screenshots/
+│       ├── dashboard.png
+│       ├── jobs.png
+│       ├── book.png
+│       ├── payments.png
+│       ├── analytics.png
+│       └── quotes.png
+├── app/
+│   ├── (public)/
+│   │   ├── services/page.tsx
+│   │   ├── results/page.tsx
+│   │   ├── about/page.tsx
+│   │   ├── contact/page.tsx
+│   │   └── pricing/page.tsx
+│   ├── api/
+│   │   ├── auth/
+│   │   ├── jobs/
+│   │   ├── customers/
+│   │   ├── analytics/
+│   │   ├── chat/
+│   │   ├── ai-insights/
+│   │   ├── booking/
+│   │   ├── register/
+│   │   └── stripe/
+│   │       ├── checkout/
+│   │       ├── refund/
+│   │       └── webhooks/
+│   ├── book/
+│   ├── dashboard/
+│   ├── jobs/
+│   ├── customers/
+│   ├── staff/
+│   ├── analytics/
+│   ├── payments/
+│   ├── quotes/
+│   ├── reports/
+│   ├── booking-requests/
+│   ├── notifications/
+│   ├── login/
+│   └── register/
+├── components/
+│   ├── layout/
+│   │   ├── AppShell.tsx
+│   │   ├── Sidebar.tsx
+│   │   └── Topbar.tsx
+│   ├── public/
+│   │   ├── PublicNav.tsx
+│   │   └── PublicFooter.tsx
+│   ├── shared/
+│   │   ├── StatusBadge.tsx
+│   │   └── EmptyState.tsx
+│   ├── ui/
+│   │   ├── Button.tsx
+│   │   ├── Badge.tsx
+│   │   ├── Inputs.tsx
+│   │   ├── Radix.tsx
+│   │   └── Toaster.tsx
+│   └── AdminChatWidget.tsx
+├── data/
+│   └── demo.ts
+├── lib/
+│   ├── auth.ts
+│   └── utils.ts
+├── store/
+│   └── useAppStore.ts
+├── types/
+│   └── index.ts
+└── prisma/
+└── schema.prisma
+
+---
+
+## Environment Variables
+
+```env
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-here
+
+DEMO_MODE=true
+
+DATABASE_URL=postgresql://user:password@host:5432/pristinepro
+
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+OPENAI_API_KEY=sk-...
+```
+
+All four optional keys can be left empty. Every integration degrades gracefully. Stripe simulates a successful payment locally. OpenAI serves intelligent pre-written responses that read actual demo data. The database is bypassed entirely. No broken pages, no error screens.
+
+---
+
+## Stripe Test Mode
+
+Add your test keys to .env.local then forward webhooks with the Stripe CLI:
+
+```bash
+stripe listen --forward-to localhost:3000/api/stripe/webhooks
+```
+
+Test card number: 4242 4242 4242 4242
+Expiry: any future date
+CVC: any three digits
+ZIP: any five digits
+
+---
+
+## Production Deployment
+
+```bash
+npx vercel deploy
+```
+
+Set all environment variables in the Vercel dashboard. Set DEMO_MODE to false and provide a DATABASE_URL, then run the following to initialise the schema:
+
+```bash
+npx prisma db push
+npx prisma generate
+```
+
+---
+
+## Design System
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| Primary | #4FC3F7 | CTAs, active states, links, brand accents |
+| Accent | #F48FB1 | Highlights, gradient partner, secondary CTA |
+| Background | #FFFFFF | Page and card backgrounds |
+| Surface 50 | #F8FBFF | Input backgrounds and hover states |
+| Text Primary | #1A1A2E | Headings and primary content |
+| Text Secondary | #4A4A6A | Body copy and descriptions |
+| Text Muted | #9090A8 | Labels, timestamps, metadata |
+| Border | #E8EDF5 | Card and input borders |
+| Font Display | Plus Jakarta Sans | All headings and KPI values |
+| Font Body | Inter | All body text and UI labels |
+
+The admin dashboard uses the same colour palette as the public marketing site so the product feels like one cohesive tool rather than two separate applications stitched together.
+
+---
+
+## Engineering Decisions Worth Knowing
+
+**No shadcn/ui was used.** Every UI component is written from scratch using Radix UI primitives and class-variance-authority. This demonstrates the ability to build and maintain a real component library rather than generating one from a scaffold tool.
+
+**Route groups handle surface separation cleanly.** The (public) route group gives the marketing pages a completely different layout from the authenticated dashboard without conditional rendering, layout overrides, or code duplication. It is the correct Next.js 14 App Router pattern for multi-surface applications.
+
+**Zustand was chosen over React Context.** Notification state, sidebar open state, and booking requests all need to be shared across unrelated parts of the component tree. Zustand handles this with a fraction of the boilerplate and avoids the re-render cascade that Context providers create.
+
+**Booking requests are a separate entity from jobs.** A public form submission does not immediately create a job. It lands in a dedicated inbox first so the admin can review it, confirm availability, and assign a crew before it becomes a real booking. This two-step model is how actual cleaning businesses operate.
+
+**Demo mode is a first-class feature.** Most portfolio projects either require complex setup or show placeholder data. This project treats demo mode as a shipping feature. The application behaves identically in demo mode and production mode, just with different data sources. Anyone can evaluate the full product in under sixty seconds.
+
+---
+
+## Contact
+
+Available for full-time and contract opportunities.
+📧 marlon.haynes.dev@gmail.com
+
+---
+
+## License
+
+Personal portfolio project — not licensed for reuse or redistribution.
+
+© 2026 Marlon Haynes. All rights reserved.
+
+---
+
+Built by Marlon Haynes • Web Alchemist Labs
