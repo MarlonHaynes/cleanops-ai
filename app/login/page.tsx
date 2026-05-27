@@ -54,7 +54,7 @@ export default function LoginPage() {
             Manage your entire cleaning business in one place.
           </h2>
           <p className="text-text-secondary text-sm leading-relaxed">
-            Book cleanings, track jobs, manage payments, and grow your business — all powered by AI.
+            Book cleanings, track jobs, manage payments, and grow your business all powered by AI.
           </p>
           <div className="space-y-3">
             {["Public booking page for customers","Stripe online payments","AI assistant with live data","Revenue analytics & reports","Quote-to-booking pipeline"].map(f => (

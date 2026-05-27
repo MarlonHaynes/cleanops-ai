@@ -2,7 +2,7 @@
 import { useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { Sparkles, ArrowRight, ArrowLeft, CheckCircle, Loader2, Calendar, MapPin, User, Clock } from "lucide-react";
+import { Sparkles, ArrowRight, ArrowLeft, CheckCircle, Loader2, Calendar, MapPin, User, Clock, Mail, Phone } from "lucide-react";
 import { PublicNav } from "@/components/public/PublicNav";
 import { SERVICE_LABELS, SERVICE_DESCRIPTIONS, SERVICE_PRICES, SERVICE_DURATION, SERVICE_IMAGES, SERVICE_COLORS } from "@/lib/utils";
 import type { ServiceType } from "@/types";
@@ -192,6 +192,8 @@ function BookingForm() {
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="flex items-start gap-2"><User className="w-4 h-4 text-brand-blue mt-0.5 shrink-0" /><div><p className="text-xs text-text-muted mb-0.5">Name</p><p className="font-medium text-text-primary">{form.firstName} {form.lastName}</p></div></div>
                   <div className="flex items-start gap-2"><Calendar className="w-4 h-4 text-brand-blue mt-0.5 shrink-0" /><div><p className="text-xs text-text-muted mb-0.5">Date</p><p className="font-medium text-text-primary">{new Date(form.preferredDate).toLocaleDateString("en-CA",{weekday:"short",month:"short",day:"numeric"})}</p></div></div>
+                  <div className="flex items-start gap-2"><Mail className="w-4 h-4 text-brand-blue mt-0.5 shrink-0" /><div><p className="text-xs text-text-muted mb-0.5">Email</p><p className="font-medium text-text-primary">{form.email}</p></div></div>
+                  <div className="flex items-start gap-2"><Phone className="w-4 h-4 text-brand-blue mt-0.5 shrink-0" /><div><p className="text-xs text-text-muted mb-0.5">Phone</p><p className="font-medium text-text-primary">{form.phone || "Not provided"}</p></div></div>
                   <div className="col-span-2 flex items-start gap-2"><MapPin className="w-4 h-4 text-brand-blue mt-0.5 shrink-0" /><div><p className="text-xs text-text-muted mb-0.5">Location</p><p className="font-medium text-text-primary">{form.address}, {form.city}, ON</p></div></div>
                   {form.notes && <div className="col-span-2"><p className="text-xs text-text-muted mb-0.5">Notes</p><p className="text-text-secondary text-xs">{form.notes}</p></div>}
                 </div>

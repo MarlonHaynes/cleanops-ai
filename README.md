@@ -32,25 +32,43 @@ Three roles are available to evaluate every surface of the platform.
 
 ---
 
-## Screenshots
+## Featured Product Screens
 
-**Admin Dashboard**
+**1) Admin Dashboard**
 
-![Admin Dashboard](screenshots/dashboard-preview.png)
+![Admin Dashboard](doc/screenshots/dashboard.png)
 
-The operational core of the platform. KPI cards, a twelve month revenue chart, AI business insights, recent jobs, and a live activity log all visible on a single screen.
+Command center for operations with KPI cards, revenue tracking, AI-generated insights, recent jobs, and live activity in one view.
 
-**Jobs and Bookings**
+**2) Jobs and Scheduling**
 
-![Jobs and Bookings](screenshots/jobs-bookings.png)
+![Jobs and Scheduling](doc/screenshots/jobs.png)
 
-Full job management with status pipeline, crew assignment, service badges, and per-job Stripe payment initiation built into each card.
+End-to-end job management with status workflow, crew assignment, service metadata, and operational actions from a single screen.
 
-**Customer Booking Flow**
+**3) Public Booking Wizard**
 
-![Customer Booking Flow](screenshots/customer-booking-flow.png)
+![Public Booking Wizard](doc/screenshots/book.png)
 
-The public three step booking wizard. Customers choose a service with a real photo, enter their property details, and submit a request without needing an account.
+Three-step customer funnel that captures service selection, contact and location details, and request confirmation without requiring an account.
+
+**4) Payments and Invoices**
+
+![Payments and Invoices](doc/screenshots/payments.png)
+
+Invoice lifecycle management with paid and unpaid views, Stripe checkout support, deposit options, and refund processing controls.
+
+**5) Analytics Workspace**
+
+![Analytics Workspace](doc/screenshots/analytics.png)
+
+Multi-tab analytics experience covering revenue, service mix, geography, and crew performance with production-style charting.
+
+**6) Quotes Pipeline**
+
+![Quotes Pipeline](doc/screenshots/quotes.png)
+
+Quote lifecycle workflow from creation to approval and conversion, reflecting how sales and operations connect in real service businesses.
 
 ---
 
@@ -163,10 +181,14 @@ A floating chat widget on every admin page shown only to Admin and Manager roles
 
 ```
 pristine-pro/
-├── screenshots/
-│   ├── dashboard-preview.png
-│   ├── jobs-bookings.png
-│   └── customer-booking-flow.png
+├── doc/
+│   └── screenshots/
+│       ├── dashboard.png
+│       ├── jobs.png
+│       ├── book.png
+│       ├── payments.png
+│       ├── analytics.png
+│       └── quotes.png
 ├── app/
 │   ├── (public)/
 │   │   ├── services/page.tsx
