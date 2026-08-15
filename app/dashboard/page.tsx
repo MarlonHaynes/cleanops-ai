@@ -56,41 +56,41 @@ function CustomerDashboard({ name, email }: { name:string; email:string }) {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div><h1 className="text-2xl font-display font-bold text-text-primary">Welcome back, {name} 👋</h1><p className="text-sm text-text-secondary mt-1">Track your bookings, view invoices, and pay online.</p></div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
         {[{l:"Bookings",v:myJobs.length,c:"#4FC3F7"},{l:"Upcoming",v:upcoming.length,c:"#16A34A"},{l:"Total Spent",v:formatCurrency(totalSpent),c:"#F48FB1"}].map(s=>(
-          <div key={s.l} className="pub-card p-4 text-center"><p className="text-[10px] text-text-muted uppercase tracking-wide mb-1.5">{s.l}</p><p className="text-xl font-display font-bold" style={{color:s.c}}>{s.v}</p></div>
+          <div key={s.l} className="pub-card p-3 sm:p-4 text-center"><p className="text-[9px] sm:text-[10px] text-text-muted uppercase tracking-wide mb-1.5 leading-tight">{s.l}</p><p className="text-lg sm:text-xl font-display font-bold break-words" style={{color:s.c}}>{s.v}</p></div>
         ))}
       </div>
       <div className="rounded-2xl p-5 relative overflow-hidden" style={{background:"linear-gradient(135deg,rgba(79,195,247,0.08),rgba(244,143,177,0.06))",border:"1px solid rgba(79,195,247,0.2)"}}>
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div><h3 className="font-display font-semibold text-text-primary mb-1">Need another cleaning?</h3><p className="text-sm text-text-secondary">Book online in 2 minutes.</p></div>
           <Link href="/book" className="btn-primary shrink-0 text-sm py-2.5 px-5">Book Now <ArrowRight className="w-4 h-4"/></Link>
         </div>
       </div>
       {unpaid.length>0&&(
-        <div className="rounded-2xl p-4 flex items-center gap-3" style={{background:"rgba(245,158,11,0.06)",border:"1px solid rgba(245,158,11,0.25)"}}>
+        <div className="rounded-2xl p-4 flex flex-wrap items-center gap-3" style={{background:"rgba(245,158,11,0.06)",border:"1px solid rgba(245,158,11,0.25)"}}>
           <CreditCard className="w-5 h-5 text-amber-600 shrink-0"/>
-          <div className="flex-1"><p className="text-sm font-semibold text-amber-800">{unpaid.length} unpaid invoice{unpaid.length>1?"s":""} · {formatCurrency(unpaid.reduce((s,j)=>s+j.price,0))}</p></div>
+          <p className="flex-1 min-w-0 text-sm font-semibold text-amber-800">{unpaid.length} unpaid invoice{unpaid.length>1?"s":""} · {formatCurrency(unpaid.reduce((s,j)=>s+j.price,0))}</p>
           <Link href="/payments" className="btn-primary text-xs py-1.5 px-3 shrink-0">Pay Now</Link>
         </div>
       )}
       <div className="pub-card overflow-hidden">
-        <div className="px-5 pt-5 pb-4 border-b border-border flex items-center justify-between">
-          <h3 className="text-base font-display font-semibold text-text-primary">Booking History & Invoices</h3>
-          <Link href="/payments" className="text-xs font-semibold text-brand-blue-dark hover:underline">All invoices →</Link>
+        <div className="px-4 sm:px-5 pt-5 pb-4 border-b border-border flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+          <h3 className="text-base font-display font-semibold text-text-primary">Booking History &amp; Invoices</h3>
+          <Link href="/payments" className="text-xs font-semibold text-brand-blue-dark hover:underline shrink-0">All invoices →</Link>
         </div>
         {myJobs.length===0?(
           <div className="px-5 py-10 text-center"><Calendar className="w-8 h-8 text-text-muted mx-auto mb-3"/><p className="text-sm font-medium text-text-primary mb-1">No bookings yet</p><p className="text-xs text-text-muted mb-4">Book your first clean to get started.</p><Link href="/book" className="btn-primary text-sm py-2 px-4 inline-flex">Book a Clean</Link></div>
         ):(
           <div className="divide-y divide-border">
             {myJobs.map(job=>(
-              <div key={job.id} className="flex items-center gap-4 px-5 py-4 hover:bg-surface-50 transition-colors">
+              <div key={job.id} className="flex flex-col gap-3 px-4 sm:px-5 py-4 hover:bg-surface-50 transition-colors sm:flex-row sm:items-center sm:gap-4">
                 <div className="flex-1 min-w-0"><p className="text-sm font-medium text-text-primary">{job.serviceType.replace(/_/g," ")}</p><p className="text-xs text-text-muted mt-0.5">{formatDate(job.scheduledAt)} · {job.city}</p></div>
-                <div className="flex items-center gap-3 shrink-0">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 sm:shrink-0">
                   <StatusBadge status={job.status}/>
                   <PaymentBadge paid={job.paid||job.status==="COMPLETED"}/>
                   <span className="text-sm font-bold text-text-primary">{formatCurrency(job.price)}</span>
-                  {!job.paid&&!["CANCELLED","COMPLETED"].includes(job.status)&&(<Link href="/payments" className="btn-primary text-xs py-1.5 px-3">Pay</Link>)}
+                  {!job.paid&&!["CANCELLED","COMPLETED"].includes(job.status)&&(<Link href="/payments" className="btn-primary text-xs py-1.5 px-3 ml-auto sm:ml-0">Pay</Link>)}
                 </div>
               </div>
             ))}

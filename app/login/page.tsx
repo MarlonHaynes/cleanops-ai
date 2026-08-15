@@ -98,17 +98,21 @@ export default function LoginPage() {
           {/* Demo accounts */}
           <div className="space-y-2">
             <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Quick Demo Access</p>
-            <div className="grid grid-cols-3 gap-2">
-              {DEMOS.map(d => (
-                <button key={d.label} onClick={() => { setEmail(d.email); setPassword(d.password); setError(""); }}
-                  className="p-3 rounded-xl border border-border bg-white hover:border-brand-blue/40 hover:shadow-soft transition-all text-left">
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <div className="w-4 h-4 rounded flex items-center justify-center text-[8px] font-bold text-white" style={{ background:`linear-gradient(135deg,${d.color},${d.color}cc)` }}>{d.label[0]}</div>
-                    <span className="text-xs font-semibold text-text-primary">{d.label}</span>
-                  </div>
-                  <p className="text-[10px] text-text-muted">{d.desc}</p>
-                </button>
-              ))}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              {DEMOS.map(d => {
+                const active = email === d.email;
+                return (
+                  <button key={d.label} type="button" onClick={() => { setEmail(d.email); setPassword(d.password); setError(""); }}
+                    className={`w-full flex items-center gap-3 p-3 sm:flex-col sm:items-start sm:gap-2 rounded-xl border bg-white text-left transition-all active:scale-[0.99] ${active ? "border-brand-blue shadow-soft" : "border-border hover:border-brand-blue/40 hover:shadow-soft"}`}>
+                    <div className="w-9 h-9 sm:w-7 sm:h-7 rounded-lg flex items-center justify-center text-sm sm:text-xs font-bold text-white shrink-0" style={{ background:`linear-gradient(135deg,${d.color},${d.color}cc)` }}>{d.label[0]}</div>
+                    <div className="min-w-0 flex-1 sm:flex-none sm:w-full">
+                      <p className="text-sm sm:text-xs font-semibold text-text-primary leading-snug">{d.label}</p>
+                      <p className="text-xs sm:text-[10px] text-text-muted leading-snug">{d.desc}</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-text-light shrink-0 sm:hidden" />
+                  </button>
+                );
+              })}
             </div>
           </div>
 

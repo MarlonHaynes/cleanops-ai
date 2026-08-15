@@ -25,11 +25,11 @@ export function Topbar() {
   const initials = name.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2);
 
   return (
-    <header className="h-[60px] border-b border-border bg-white/90 backdrop-blur-sm flex items-center px-5 gap-4 sticky top-0 z-30 shadow-sm">
-      <Button variant="ghost" size="icon-sm" onClick={toggleSidebar}>
+    <header className="h-[60px] border-b border-border bg-white/90 backdrop-blur-sm flex items-center px-3 sm:px-5 gap-2 sm:gap-4 sticky top-0 z-30 shadow-sm">
+      <Button variant="ghost" size="icon-sm" onClick={toggleSidebar} aria-label="Toggle navigation" className="shrink-0">
         <Menu className="w-4 h-4" />
       </Button>
-      <h1 className="text-sm font-display font-semibold text-text-primary flex-1">
+      <h1 className="text-sm font-display font-semibold text-text-primary flex-1 min-w-0 truncate">
         {TITLES[pathname] || "CleanOps AI"}
       </h1>
       <Link href="/notifications">

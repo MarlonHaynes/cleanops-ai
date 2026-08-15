@@ -57,12 +57,12 @@ SelectLabel.displayName = "SelectLabel";
 export const Tabs = TabsPrimitive.Root;
 
 export const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>>(
-  ({ className, ...props }, ref) => <TabsPrimitive.List ref={ref} className={cn("inline-flex h-9 items-center justify-center rounded-xl bg-surface-100 border border-border p-1 text-text-muted", className)} {...props} />
+  ({ className, ...props }, ref) => <TabsPrimitive.List ref={ref} className={cn("flex h-9 w-full sm:w-auto sm:inline-flex items-center justify-start rounded-xl bg-surface-100 border border-border p-1 text-text-muted max-w-full overflow-x-auto no-scrollbar", className)} {...props} />
 );
 TabsList.displayName = "TabsList";
 
 export const TabsTrigger = React.forwardRef<React.ElementRef<typeof TabsPrimitive.Trigger>, React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>>(
-  ({ className, ...props }, ref) => <TabsPrimitive.Trigger ref={ref} className={cn("inline-flex items-center justify-center whitespace-nowrap rounded-lg px-3 py-1 text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-text-primary data-[state=active]:shadow-soft", className)} {...props} />
+  ({ className, ...props }, ref) => <TabsPrimitive.Trigger ref={ref} className={cn("inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-lg px-3 py-1 text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-white data-[state=active]:text-text-primary data-[state=active]:shadow-soft", className)} {...props} />
 );
 TabsTrigger.displayName = "TabsTrigger";
 
@@ -86,7 +86,7 @@ export const DialogContent = React.forwardRef<React.ElementRef<typeof DialogPrim
   ({ className, children, ...props }, ref) => (
     <DialogPortal>
       <DialogOverlay />
-      <DialogPrimitive.Content ref={ref} className={cn("fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-border bg-white p-6 shadow-[0_24px_64px_rgba(0,0,0,0.15)] rounded-2xl duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95", className)} {...props}>
+      <DialogPrimitive.Content ref={ref} className={cn("fixed left-[50%] top-[50%] z-50 grid w-[calc(100%-1.5rem)] max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto translate-x-[-50%] translate-y-[-50%] gap-4 border border-border bg-white p-4 sm:p-6 shadow-[0_24px_64px_rgba(0,0,0,0.15)] rounded-2xl duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95", className)} {...props}>
         {children}
         <DialogPrimitive.Close className="absolute right-4 top-4 rounded-lg p-1 text-text-muted hover:text-text-primary hover:bg-surface-100 transition-all focus:outline-none">
           <X className="h-4 w-4" /><span className="sr-only">Close</span>
@@ -98,7 +98,7 @@ export const DialogContent = React.forwardRef<React.ElementRef<typeof DialogPrim
 DialogContent.displayName = "DialogContent";
 
 export const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div className={cn("flex flex-col space-y-1.5", className)} {...props} />;
-export const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)} {...props} />;
+export const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => <div className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className)} {...props} />;
 
 export const DialogTitle = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Title>, React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>>(
   ({ className, ...props }, ref) => <DialogPrimitive.Title ref={ref} className={cn("text-lg font-display font-semibold text-text-primary", className)} {...props} />

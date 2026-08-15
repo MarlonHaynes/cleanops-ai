@@ -46,18 +46,18 @@ function InvoiceRow({ inv, isAdmin }: { inv: typeof INVOICES[0]; isAdmin: boolea
   }
 
   return (
-    <div className="pub-card p-5 hover:border-[rgba(0,212,255,0.12)] transition-colors">
-      <div className="flex items-start justify-between mb-3">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
+    <div className="pub-card p-4 sm:p-5 hover:border-[rgba(0,212,255,0.12)] transition-colors">
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-1">
             <p className="text-sm font-semibold text-text-primary">{inv.job.customer.firstName} {inv.job.customer.lastName}</p>
             <PaymentBadge paid={paid} />
             {inv.overdue && !paid && <Badge variant="error" className="text-[10px]">Cancelled</Badge>}
           </div>
-          <p className="text-xs text-text-muted">#{inv.id.slice(-8)} · {SERVICE_LABELS[inv.job.serviceType]} · {inv.job.city}</p>
+          <p className="text-xs text-text-muted break-words">#{inv.id.slice(-8)} · {SERVICE_LABELS[inv.job.serviceType]} · {inv.job.city}</p>
           <p className="text-xs text-text-muted mt-0.5">{formatDate(inv.job.scheduledAt)}</p>
         </div>
-        <div className="text-right">
+        <div className="text-right shrink-0">
           <p className="text-xl font-bold text-text-primary" style={{ fontFamily:"'Plus Jakarta Sans',sans-serif" }}>{formatCurrency(inv.amount)}</p>
           <p className="text-xs text-text-muted mt-0.5">Deposit: {formatCurrency(inv.depositAmount)}</p>
         </div>
@@ -100,18 +100,18 @@ export default function PaymentsPage() {
 
   return (
     <div className="max-w-[1200px] mx-auto space-y-5">
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0">
           <h1 className="text-2xl font-bold text-text-primary" style={{ fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Payments</h1>
           <p className="text-sm text-text-secondary mt-0.5">Stripe test-mode · Use card 4242 4242 4242 4242</p>
         </div>
-        <div className="flex items-center gap-2 text-xs text-text-muted bg-surface-100 border border-border rounded-lg px-3 py-2">
+        <div className="flex items-center gap-2 self-start text-xs text-text-muted bg-surface-100 border border-border rounded-lg px-3 py-2 shrink-0">
           <CreditCard className="w-3.5 h-3.5 text-[#A855F7]"/>Stripe Test Mode
         </div>
       </div>
 
       {isAdmin && (
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { label:"Paid", value:formatCurrency(totalPaid), count:`${paid.length} invoices`, color:"#22C55E", icon:CheckCircle },
             { label:"Outstanding", value:formatCurrency(totalUnpaid), count:`${unpaid.length} invoices`, color:"#F59E0B", icon:Clock },

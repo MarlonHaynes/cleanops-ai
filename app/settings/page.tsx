@@ -40,17 +40,17 @@ export default function SettingsPage() {
           <TabsTrigger value="security" className="gap-2"><Shield className="w-3.5 h-3.5"/>Security</TabsTrigger>
         </TabsList>
         <TabsContent value="profile">
-          <div className="pub-card p-6 space-y-6">
+          <div className="pub-card p-4 sm:p-6 space-y-6">
             <div className="flex items-center gap-4">
-              <Avatar className="h-16 w-16"><AvatarFallback className="text-xl">{initials}</AvatarFallback></Avatar>
-              <div>
-                <p className="font-semibold text-text-primary">{name}</p>
-                <p className="text-sm text-text-muted">{session?.user?.email}</p>
+              <Avatar className="h-14 w-14 sm:h-16 sm:w-16 shrink-0"><AvatarFallback className="text-lg sm:text-xl">{initials}</AvatarFallback></Avatar>
+              <div className="min-w-0">
+                <p className="font-semibold text-text-primary truncate">{name}</p>
+                <p className="text-sm text-text-muted truncate">{session?.user?.email}</p>
                 <Badge variant={isAdmin?"info":"success"} className="mt-1.5">{role}</Badge>
               </div>
             </div>
             <Separator/>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5"><Label>Full Name</Label><Input defaultValue={name}/></div>
               <div className="space-y-1.5"><Label>Email</Label><Input type="email" defaultValue={session?.user?.email||""}/></div>
               <div className="space-y-1.5"><Label>Phone</Label><Input placeholder="416-555-0000"/></div>
@@ -61,14 +61,14 @@ export default function SettingsPage() {
         </TabsContent>
         {isAdmin&&(
           <TabsContent value="business">
-            <div className="pub-card p-6 space-y-6">
+            <div className="pub-card p-4 sm:p-6 space-y-6">
               <div><h3 className="text-base font-semibold text-text-primary" style={{ fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Business Information</h3><p className="text-xs text-text-muted mt-0.5">Update your cleaning business details</p></div>
               <Separator/>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="col-span-2 space-y-1.5"><Label>Business Name</Label><Input defaultValue={DEMO_ORG.name}/></div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="sm:col-span-2 space-y-1.5"><Label>Business Name</Label><Input defaultValue={DEMO_ORG.name}/></div>
                 <div className="space-y-1.5"><Label>Email</Label><Input type="email" defaultValue={DEMO_ORG.email||""}/></div>
                 <div className="space-y-1.5"><Label>Phone</Label><Input defaultValue={DEMO_ORG.phone||""}/></div>
-                <div className="col-span-2 space-y-1.5"><Label>Address</Label><Input defaultValue={DEMO_ORG.address||""}/></div>
+                <div className="sm:col-span-2 space-y-1.5"><Label>Address</Label><Input defaultValue={DEMO_ORG.address||""}/></div>
                 <div className="space-y-1.5"><Label>City</Label><Input defaultValue={DEMO_ORG.city}/></div>
                 <div className="space-y-1.5"><Label>Province</Label>
                   <Select defaultValue={DEMO_ORG.province}><SelectTrigger><SelectValue/></SelectTrigger>
@@ -81,7 +81,7 @@ export default function SettingsPage() {
           </TabsContent>
         )}
         <TabsContent value="notifications">
-          <div className="pub-card p-6 space-y-6">
+          <div className="pub-card p-4 sm:p-6 space-y-6">
             <div><h3 className="text-base font-semibold text-text-primary" style={{ fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Notification Preferences</h3></div>
             <Separator/>
             <div className="space-y-4">
@@ -92,9 +92,9 @@ export default function SettingsPage() {
                 {k:"cancellation",l:"Cancellation",d:"Notify on job cancellations"},
                 ...(isAdmin?[{k:"staffAlert",l:"Staff Alerts",d:"Staff status changes and availability"},{k:"weekly",l:"Weekly Summary",d:"Weekly business performance email"}]:[]),
               ].map(s=>(
-                <div key={s.k} className="flex items-center justify-between py-3 border-b border-[rgba(255,255,255,0.05)] last:border-0">
-                  <div><p className="text-sm font-medium text-text-primary">{s.l}</p><p className="text-xs text-text-muted mt-0.5">{s.d}</p></div>
-                  <Switch checked={notifs[s.k as keyof typeof notifs]} onCheckedChange={()=>setNotifs(p=>({...p,[s.k]:!p[s.k as keyof typeof notifs]}))}/>
+                <div key={s.k} className="flex items-center justify-between gap-4 py-3 border-b border-[rgba(255,255,255,0.05)] last:border-0">
+                  <div className="min-w-0"><p className="text-sm font-medium text-text-primary">{s.l}</p><p className="text-xs text-text-muted mt-0.5">{s.d}</p></div>
+                  <div className="shrink-0"><Switch checked={notifs[s.k as keyof typeof notifs]} onCheckedChange={()=>setNotifs(p=>({...p,[s.k]:!p[s.k as keyof typeof notifs]}))}/></div>
                 </div>
               ))}
             </div>
@@ -102,7 +102,7 @@ export default function SettingsPage() {
           </div>
         </TabsContent>
         <TabsContent value="security">
-          <div className="pub-card p-6 space-y-6">
+          <div className="pub-card p-4 sm:p-6 space-y-6">
             <div><h3 className="text-base font-semibold text-text-primary" style={{ fontFamily:"'Plus Jakarta Sans',sans-serif" }}>Security</h3></div>
             <Separator/>
             <div className="space-y-4">

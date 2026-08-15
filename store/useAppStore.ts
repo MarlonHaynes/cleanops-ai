@@ -16,8 +16,12 @@ interface AppState {
   setBookingRequests: (r: BookingRequest[]) => void;
 }
 
+// Collapsed by default below the lg breakpoint — there the sidebar is an overlay
+// drawer, so starting it open would cover the page on first paint.
+const initialSidebarOpen = typeof window === "undefined" ? true : window.innerWidth >= 1024;
+
 export const useAppStore = create<AppState>((set, get) => ({
-  sidebarOpen: true,
+  sidebarOpen: initialSidebarOpen,
   toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
   setSidebarOpen: (v) => set({ sidebarOpen: v }),
   notifications: [],

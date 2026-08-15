@@ -41,10 +41,15 @@ export function Sidebar() {
   const name = session?.user?.name || "User";
   const initials = name.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2);
 
-  if (!sidebarOpen) return null;
-
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-[220px] bg-white border-r border-border z-40 flex flex-col shadow-soft">
+    <aside
+      aria-hidden={!sidebarOpen}
+      className={cn(
+        "fixed left-0 top-0 bottom-0 w-[220px] bg-white border-r border-border z-50 flex flex-col shadow-soft",
+        "transition-[transform,visibility] duration-300 ease-out",
+        sidebarOpen ? "translate-x-0" : "-translate-x-full invisible"
+      )}
+    >
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-5 h-[60px] border-b border-border shrink-0">
         <div className="w-7 h-7 rounded-lg flex items-center justify-center shadow-soft" style={{ background:"linear-gradient(135deg,#4FC3F7,#F48FB1)" }}>

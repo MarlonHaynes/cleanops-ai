@@ -93,20 +93,20 @@ export default function JobsPage() {
 
   return (
     <div className="max-w-[1400px] mx-auto space-y-5">
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="min-w-0">
           <h1 className="text-2xl font-bold text-text-primary" style={{ fontFamily:"'Plus Jakarta Sans',sans-serif" }}>
             {isAdmin ? "Jobs & Bookings" : "My Bookings"}
           </h1>
           <p className="text-sm text-text-secondary mt-0.5">{jobs.length} total</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 shrink-0">
           {!isAdmin && <Link href="/book" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-[#09090F] text-sm font-semibold hover:opacity-90 shadow-[0_0_16px_rgba(0,212,255,0.25)]" style={{ background:"linear-gradient(135deg,#00D4FF,#0087A8)" }}><Plus className="w-4 h-4" />Book a Clean</Link>}
           {isAdmin && <button onClick={()=>setCreateOpen(true)} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-[#09090F] text-sm font-semibold hover:opacity-90 shadow-[0_0_16px_rgba(0,212,255,0.25)]" style={{ background:"linear-gradient(135deg,#00D4FF,#0087A8)" }}><Plus className="w-4 h-4" />New Booking</button>}
         </div>
       </div>
 
-      <div className="flex items-center gap-2 overflow-x-auto pb-1">
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
         {STATUS_TABS.map(s=>(
           <button key={s} onClick={()=>setStatusFilter(s)} className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap border transition-all ${statusFilter===s?"bg-brand-blue-light text-brand-blue-dark border-[rgba(0,212,255,0.3)]":"text-text-secondary border-border hover:text-text-primary"}`}>
             {s==="ALL"?"All Jobs":STATUS_LABELS[s]} <span className="opacity-50 ml-1">{counts[s]||0}</span>
@@ -114,7 +114,7 @@ export default function JobsPage() {
         ))}
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
           <input placeholder="Search by name, city, address..." value={search} onChange={e=>setSearch(e.target.value)}
@@ -122,7 +122,7 @@ export default function JobsPage() {
         </div>
         {isAdmin && (
           <Select value={svcFilter} onValueChange={setSvcFilter}>
-            <SelectTrigger className="w-44 h-9"><Filter className="w-3.5 h-3.5 mr-1.5 text-text-muted" /><SelectValue /></SelectTrigger>
+            <SelectTrigger className="w-full sm:w-44 h-9 shrink-0"><Filter className="w-3.5 h-3.5 mr-1.5 text-text-muted" /><SelectValue /></SelectTrigger>
             <SelectContent>
               {SVC_FILTERS.map(s=><SelectItem key={s} value={s}>{s==="ALL"?"All Services":SERVICE_LABELS[s]}</SelectItem>)}
             </SelectContent>
@@ -135,21 +135,21 @@ export default function JobsPage() {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
           {filtered.map((job,i)=>(
-            <div key={job.id} className="pub-card cursor-pointer p-5 cursor-pointer" style={{ animationDelay:`${i*30}ms` }} onClick={()=>{ setSelected(job); setDetailOpen(true); }}>
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex items-center gap-2.5">
-                  <Avatar className="h-8 w-8"><AvatarFallback className="text-[10px]">{getInitials(job.customer.firstName,job.customer.lastName)}</AvatarFallback></Avatar>
-                  <div>
-                    <p className="text-sm font-semibold text-text-primary">{job.customer.firstName} {job.customer.lastName}</p>
+            <div key={job.id} className="pub-card cursor-pointer p-4 sm:p-5" style={{ animationDelay:`${i*30}ms` }} onClick={()=>{ setSelected(job); setDetailOpen(true); }}>
+              <div className="flex items-start justify-between gap-2 mb-3">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <Avatar className="h-8 w-8 shrink-0"><AvatarFallback className="text-[10px]">{getInitials(job.customer.firstName,job.customer.lastName)}</AvatarFallback></Avatar>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-text-primary truncate">{job.customer.firstName} {job.customer.lastName}</p>
                     <p className="text-[10px] text-text-muted">#{job.id.slice(-5)}</p>
                   </div>
                 </div>
-                <StatusBadge status={job.status} />
+                <div className="shrink-0"><StatusBadge status={job.status} /></div>
               </div>
               <div className="mb-3"><ServiceBadge type={job.serviceType} /></div>
               <div className="space-y-1.5 text-xs text-text-secondary">
                 <div className="flex items-center gap-2"><Calendar className="w-3.5 h-3.5 text-text-muted" />{formatDateTime(job.scheduledAt)}</div>
-                <div className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5 text-text-muted" /><span className="truncate">{job.address}, {job.city}</span></div>
+                <div className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5 text-text-muted shrink-0" /><span className="min-w-0 truncate">{job.address}, {job.city}</span></div>
                 <div className="flex items-center gap-2"><Clock className="w-3.5 h-3.5 text-text-muted" />{job.duration} min {job.recurrence!=="NONE" && <Badge variant="secondary" className="text-[9px] px-1.5 ml-1">{job.recurrence.toLowerCase()}</Badge>}</div>
                 {job.crew && <div className="flex items-center gap-2"><Users className="w-3.5 h-3.5 text-text-muted" />{job.crew.name}</div>}
               </div>

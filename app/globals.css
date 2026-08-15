@@ -167,6 +167,10 @@
 .admin-scroll::-webkit-scrollbar-track { background: transparent; }
 .admin-scroll::-webkit-scrollbar-thumb { background: rgba(79,195,247,0.3); border-radius: 4px; }
 
+/* Swipeable rows (tab bars, filter chips) — scroll without a visible track */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
 /* Recharts */
 .recharts-default-tooltip {
   background: #FFFFFF !important;
